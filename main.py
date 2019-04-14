@@ -66,7 +66,6 @@ class GUI(tk.Tk):
         self.img = edited_img
         self.ax1.imshow(self.img, cmap="gray")
         self.canvas.draw()
-        print(edited_img)
 
     def openImage(self):
         self.filePath = filedialog.askopenfilename(initialdir=os.getcwd(),
