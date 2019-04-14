@@ -5,7 +5,7 @@ This is a software for editing photos. It incorporates basic DIP techniques at t
 
 ## Software GUI 
 ### Unedited Image
-<img src="image/unedited.PNG"/>
+<img src="image/unedited.PNG" height="100" width="100"/>
 
 ### Edited Image
-<img src="image/binarized.PNG"/>
+<img src="image/binarized.PNG" height="100" width="100"/>
