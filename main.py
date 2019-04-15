@@ -49,12 +49,12 @@ class GUI(tk.Tk):
         self.reColorEditWindow = tk.Toplevel(self)
         self.buttonValue = tk.StringVar(self.reColorEditWindow)
         tk.Label(self.reColorEditWindow, text="""Choose a Recoloring Method: """, justify=tk.LEFT, padx=20).pack()
-        tk.Radiobutton(self.reColorEditWindow, text="Grayscale", padx=20, variable=self.buttonValue, value="grayscale", command=self.setValueOfChoice).pack(anchor=tk.W)
-        tk.Radiobutton(self.reColorEditWindow, text="Red", padx=20, variable=self.buttonValue, value="redrecolor", command=self.setValueOfChoice).pack(anchor=tk.W)
-        tk.Radiobutton(self.reColorEditWindow, text="Blue", padx=20, variable=self.buttonValue, value="bluerecolor", command=self.setValueOfChoice).pack(anchor=tk.W)
-        tk.Radiobutton(self.reColorEditWindow, text="Green", padx=20, variable=self.buttonValue, value="greenrecolor", command=self.setValueOfChoice).pack(anchor=tk.W)
-        tk.Radiobutton(self.reColorEditWindow, text="Binarize", padx=20, variable=self.buttonValue, value="binarize", command=self.setValueOfChoice).pack(anchor=tk.W)
-        tk.Radiobutton(self.reColorEditWindow, text="Invert", padx=20, variable=self.buttonValue, value="invert", command=self.setValueOfChoice).pack(anchor=tk.W)
+        tk.Radiobutton(self.reColorEditWindow, text="Grayscale", padx=20, variable=self.buttonValue, value="grayscale", command=self.setValueOfChoice, tristatevalue=0).pack(anchor=tk.W)
+        tk.Radiobutton(self.reColorEditWindow, text="Red", padx=20, variable=self.buttonValue, value="redrecolor", command=self.setValueOfChoice,tristatevalue=0).pack(anchor=tk.W)
+        tk.Radiobutton(self.reColorEditWindow, text="Blue", padx=20, variable=self.buttonValue, value="bluerecolor", command=self.setValueOfChoice,tristatevalue=0).pack(anchor=tk.W)
+        tk.Radiobutton(self.reColorEditWindow, text="Green", padx=20, variable=self.buttonValue, value="greenrecolor", command=self.setValueOfChoice,tristatevalue=0).pack(anchor=tk.W)
+        tk.Radiobutton(self.reColorEditWindow, text="Binarize", padx=20, variable=self.buttonValue, value="binarize", command=self.setValueOfChoice,tristatevalue=0).pack(anchor=tk.W)
+        tk.Radiobutton(self.reColorEditWindow, text="Invert", padx=20, variable=self.buttonValue, value="invert", command=self.setValueOfChoice,tristatevalue=0).pack(anchor=tk.W)
         
     def setValueOfChoice(self):
         self.choiceValue = self.buttonValue.get()
