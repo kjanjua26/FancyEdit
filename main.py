@@ -41,8 +41,8 @@ class GUI(tk.Tk):
         self.image_holder_name.place(x=200, y=80)
         self.create_canvas()
         self.button.place(x=200, y=600)
-        self.refreshButton.place(x=250, y=600)
-        self.saveButton.place(x=300, y=600)
+        self.refreshButton.place(x=300, y=600)
+        self.saveButton.place(x=400, y=600)
         self.choiceValue = ""
 
     def reColorEditImageCaller(self):
@@ -66,12 +66,14 @@ class GUI(tk.Tk):
         self.canvas.draw()
 
     def saveImage(self):
-        pass        
+        
+        cv2.imwrite("C:\\Users\\Syed Waleed Hyder\\Pictures\\edited.png", cv2.cvtColor(self.edited_img.copy(), cv2.COLOR_BGR2RGB))
+        tk.messagebox.showinfo("Info","Image saved")
         
     def commonEditor(self):
         self.reColorEditWindow.destroy()
-        edited_img = editor.recolor(self.choiceValue, self.img.copy())
-        self.ax1.imshow(edited_img, cmap="gray")
+        self.edited_img = editor.recolor(self.choiceValue, self.img.copy())
+        self.ax1.imshow(self.edited_img, cmap="gray")
         self.canvas.draw()
 
     def openImage(self):
