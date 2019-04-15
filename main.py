@@ -14,6 +14,8 @@ class GUI(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         self.button = tk.Button(self, text="Load Image", command=self.openImage)
+        self.refreshButton = tk.Button(self, text="Refresh", command=self.refreshCanvas)
+        self.saveButton = tk.Button(self, text="Save", command=self.saveImage)
         self.recolor = tk.Button(self, text="ReColor Image", command=self.reColorEditImageCaller)
         self.edgeDetect = tk.Button(self, text="Edge Detection", command=self.reColorEditImageCaller)
         self.spatialFiltering = tk.Button(self, text="Spatial Filtering", command=self.reColorEditImageCaller)
@@ -38,18 +40,17 @@ class GUI(tk.Tk):
         self.title_name.place(x=400, y=10)
         self.image_holder_name.place(x=200, y=80)
         self.create_canvas()
-        self.button.place(x=250, y=600)
+        self.button.place(x=200, y=600)
+        self.refreshButton.place(x=250, y=600)
+        self.saveButton.place(x=300, y=600)
         self.choiceValue = ""
 
     def reColorEditImageCaller(self):
-        '''
-            This is the code for editing the image as per user requirements. 
-        '''
         self.reColorEditWindow = tk.Toplevel(self)
         self.buttonValue = tk.StringVar(self.reColorEditWindow)
         tk.Label(self.reColorEditWindow, text="""Choose a Recoloring Method: """, justify=tk.LEFT, padx=20).pack()
         tk.Radiobutton(self.reColorEditWindow, text="Grayscale", padx=20, variable=self.buttonValue, value="grayscale", command=self.setValueOfChoice).pack(anchor=tk.W)
-        tk.Radiobutton(self.reColorEditWindow, text="Red", padx=20, variable=self.buttonValue, value="redRecolor", command=self.setValueOfChoice).pack(anchor=tk.W)
+        tk.Radiobutton(self.reColorEditWindow, text="Red", padx=20, variable=self.buttonValue, value="redrecolor", command=self.setValueOfChoice).pack(anchor=tk.W)
         tk.Radiobutton(self.reColorEditWindow, text="Blue", padx=20, variable=self.buttonValue, value="bluerecolor", command=self.setValueOfChoice).pack(anchor=tk.W)
         tk.Radiobutton(self.reColorEditWindow, text="Green", padx=20, variable=self.buttonValue, value="greenrecolor", command=self.setValueOfChoice).pack(anchor=tk.W)
         tk.Radiobutton(self.reColorEditWindow, text="Binarize", padx=20, variable=self.buttonValue, value="binarize", command=self.setValueOfChoice).pack(anchor=tk.W)
@@ -58,13 +59,19 @@ class GUI(tk.Tk):
     def setValueOfChoice(self):
         self.choiceValue = self.buttonValue.get()
         self.commonEditor()
+
+    def refreshCanvas(self):
+        refreshedImg = self.img
+        self.ax1.imshow(refreshedImg, cmap="gray")
+        self.canvas.draw()
+
+    def saveImage(self):
+        pass        
         
     def commonEditor(self):
-        print("Value: ", self.choiceValue)
         self.reColorEditWindow.destroy()
-        edited_img = editor.recolor(self.choiceValue, self.img)
-        self.img = edited_img
-        self.ax1.imshow(self.img, cmap="gray")
+        edited_img = editor.recolor(self.choiceValue, self.img.copy())
+        self.ax1.imshow(edited_img, cmap="gray")
         self.canvas.draw()
 
     def openImage(self):
@@ -72,8 +79,9 @@ class GUI(tk.Tk):
                                               filetypes=(("JPEG", ".jpg"), ("PNG", ".png"), ("TIFF", ".tif"),
                                                          ("All Files", "*.*")),
                                               title="Open Image")
-        self.img = cv2.imread(self.filePath, 0)
-        self.ax1.imshow(self.img)
+        self.img = cv2.imread(self.filePath)
+        self.img = cv2.cvtColor(self.img, cv2.COLOR_BGR2RGB)
+        self.ax1.imshow(self.img, cmap="gray")
         self.canvas.draw()
 
     def create_canvas(self):
