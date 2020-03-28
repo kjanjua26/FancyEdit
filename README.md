@@ -9,3 +9,5 @@ This is a software for editing photos. It incorporates basic DIP techniques at t
 
 ### Edited Image
 <img src="image/binarized.PNG" height="500" width="700"/>
+
+## Edit by bella
